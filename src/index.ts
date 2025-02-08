@@ -3,7 +3,7 @@ import express, { Router} from "express";
 import type { Request, Response, NextFunction } from "express";
 import { globalMiddleware } from "./middleware/global.middleware";
 import morgan from "morgan";
-
+import routerUser  from "./routes/user.route";
 const app = express();
 
 //1. y 2. Configuración de los middlewares 
@@ -15,22 +15,11 @@ app.use(morgan("dev"));
 app.use(globalMiddleware);
 
 app.get("/", (req, res) => {
-  res.json({ message: "Hello World" });
-});
-
-const routerUser = Router();
-
-routerUser.use((req, res, next) => {
-    console.log("Middleware a nivel de ruta");
-    next();
-});
-
-routerUser.get("/user", (req, res) => {
-    res.send("User");
+  res.send( "Hello World" );
 });
 
 //Declaración de las rutas
-app.use("/api", routerUser);
+app.use("/api/user", routerUser);
 
 const messages: string[] = []
 
